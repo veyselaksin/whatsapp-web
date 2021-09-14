@@ -11,13 +11,14 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    webPreferences: {
+      devTools: false
+      }
   });
-
-  // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+  mainWindow.loadURL('https://web.whatsapp.com/');
 };
 
 // This method will be called when Electron has finished
@@ -41,6 +42,11 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+app.on('browser-window-created', function(event, window){
+  window.setMenu(null);
+
+  })
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
